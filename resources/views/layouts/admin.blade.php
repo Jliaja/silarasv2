@@ -306,6 +306,7 @@
             <a href="{{ route('admin.penomoran.index') }}">🔢 Penomoran Surat</a>
             <a href="{{ route('admin.pengajuan.index') }}">📨 Permohonan Surat</a>
             <a href="{{ route('admin.surat-keluar.index') }}">📑 Surat Keluar</a>
+            
         </div>
     </div>
 

@@ -86,9 +86,15 @@
         </div>
 
         <div style="display: flex; gap: 15px;">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="{{ route('warga.dashboard') }}" class="btn btn-outline">Batal</a>
-        </div>
+    <button type="submit" class="btn btn-primary">Simpan</button>
+
+    <a href="{{ route('warga.dashboard') }}" class="btn btn-outline">
+        Batal
+    </a>
+</div>
+<div style="margin-top: 30px; text-align: center;">
+        <a href="{{ route('warga.riwayat') }}" class="btn-outline">← Kembali ke Riwayat</a>
+    </div>
     </form>
 </div>
 

@@ -14,6 +14,7 @@
         <div class="stat-number">{{ $totalSuratKeluar }}</div>
         <div class="stat-label">Jumlah Surat Keluar</div>
         <div class="stat-sub">Total surat yang diterbitkan</div>
+        
     </div>
 </div>
 

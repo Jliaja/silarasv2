@@ -58,7 +58,9 @@
         </div>
     @endif
 </div>
-
+    <div style="margin-top: 25px; text-align: center;">
+        <a href="{{ route('warga.dashboard') }}" class="btn btn-primary">← Kembali ke Dashboard</a>
+    </div>
 <style>
     .btn-primary {
         background: #2c7cb6;
