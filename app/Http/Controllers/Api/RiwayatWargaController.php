@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\Auth;
 class RiwayatWargaController extends Controller
 {
     public function index()
-    {
-        $data = Pengajuan::where('id_user', Auth::id())
-            ->with('kategori')
-            ->latest()
-            ->get();
+{
+    $data = Pengajuan::where('id_user', Auth::id())
+        ->with('kategori')
+        ->latest()
+        ->get();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $data
-        ]);
-    }
+    return response()->json([
+        'status' => 'success',
+        'data' => $data
+    ]);
+}
 }

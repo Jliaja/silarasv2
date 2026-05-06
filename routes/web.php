@@ -61,7 +61,7 @@ Route::prefix('warga')->middleware(['auth', 'role:warga'])->group(function () {
     Route::view('/dashboard', 'warga.dashboard')->name('warga.dashboard');
     Route::view('/informasi', 'warga.informasi')->name('warga.informasi');
 
-    Route::get('/download/template-pengantar', [DownloadController::class, 'downloadTemplatePengantar'])->name('warga.download-template-pengantar');
+    // Route::get('/download/template-pengantar', [DownloadController::class, 'downloadTemplatePengantar'])->name('warga.download-template-pengantar');
 
     Route::get('/riwayat', [RiwayatWargaController::class, 'index'])->name('warga.riwayat');
 
