@@ -11,6 +11,8 @@ Route::post('/register', [AccountController::class, 'register']);
 Route::post('/verify-email', [AccountController::class, 'verifyEmail']);
 Route::post('/forgot-password', [AccountController::class, 'forgotPassword']);
 Route::post('/reset-password', [AccountController::class, 'resetPassword']);
+Route::post('/check-email', [AccountController::class, 'checkEmail']);
+Route::post('/direct-reset-password', [AccountController::class, 'directResetPassword']);
 Route::post('/login', [AuthController::class, 'login']);
    Route::get('/kategori', function () {
     return \App\Models\KategoriSurat::all();

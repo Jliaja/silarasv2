@@ -16,12 +16,29 @@ class AccountController extends Controller
     public function register(Request $request)
     {
         try {
+
             $validated = $request->validate([
-                'name' => 'required',
-                'nik' => 'required|unique:users',
-                'email' => 'required|email|unique:users',
-                'no_hp' => 'nullable',
-                'alamat' => 'nullable',
+
+                'name' => 'required|string|max:255',
+
+                'nik' => 'required|digits:16|unique:users,nik',
+
+                'email' => 'required|email|unique:users,email',
+
+                'no_hp' => 'required|min:10|max:15',
+
+                'alamat' => 'required',
+
+                'tempat_lahir' => 'required',
+
+                'tgl_lahir' => 'required|date',
+
+                'jenis_kelamin' => 'required|in:L,P',
+
+                'agama' => 'required',
+
+                'pekerjaan' => 'required',
+
                 'password' => 'required|min:6',
             ]);
 
@@ -29,8 +46,13 @@ class AccountController extends Controller
                 'name' => $validated['name'],
                 'nik' => $validated['nik'],
                 'email' => $validated['email'],
-                'no_hp' => $validated['no_hp'] ?? null,
-                'alamat' => $validated['alamat'] ?? null,
+                'no_hp' => $validated['no_hp'],
+                'alamat' => $validated['alamat'],
+                'tempat_lahir' => $validated['tempat_lahir'],
+                'tgl_lahir' => $validated['tgl_lahir'],
+                'jenis_kelamin' => $validated['jenis_kelamin'],
+                'agama' => $validated['agama'],
+                'pekerjaan' => $validated['pekerjaan'],
                 'password' => Hash::make($validated['password']),
                 'role' => 'warga',
             ]);
@@ -44,18 +66,22 @@ class AccountController extends Controller
             ], 200);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Validasi gagal',
                 'errors' => $e->errors()
             ], 422);
+
         } catch (\Throwable $e) {
+
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage()
             ], 500);
         }
     }
+
     // ================= VERIFY EMAIL =================
     public function verifyEmail(Request $request)
     {
@@ -115,7 +141,9 @@ class AccountController extends Controller
         );
 
         return response()->json([
-            'status' => $status === Password::RESET_LINK_SENT ? 'success' : 'error',
+            'status' => $status === Password::RESET_LINK_SENT
+                ? 'success'
+                : 'error',
             'message' => __($status)
         ]);
     }
@@ -139,9 +167,59 @@ class AccountController extends Controller
         );
 
         return response()->json([
-            'status' => $status === Password::PASSWORD_RESET ? 'success' : 'error',
+            'status' => $status === Password::PASSWORD_RESET
+                ? 'success'
+                : 'error',
             'message' => __($status)
         ]);
     }
-    
+
+    // ================= CHECK EMAIL =================
+    public function checkEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Email tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Email ditemukan'
+        ]);
+    }
+
+    // ================= DIRECT RESET PASSWORD =================
+    public function directResetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Email tidak ditemukan'
+            ], 404);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Password berhasil diubah'
+        ]);
+    }
 }
