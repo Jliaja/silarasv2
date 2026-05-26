@@ -1,5 +1,12 @@
 FROM dunglas/frankenphp:php8.2
 
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    curl \
+    zip
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN install-php-extensions \
     pdo_mysql \
@@ -22,4 +29,4 @@ RUN chmod -R 777 storage bootstrap/cache
 
 EXPOSE 8080
 
-CMD php artisan optimize:clear && php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan serve --host=0.0.0.0 --port=8080
