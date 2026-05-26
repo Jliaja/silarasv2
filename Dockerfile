@@ -1,5 +1,7 @@
 FROM dunglas/frankenphp:php8.2
 
+RUN php artisan storage:link || true
+
 RUN install-php-extensions \
     pdo_mysql \
     gd \
@@ -21,4 +23,4 @@ RUN chmod -R 777 storage bootstrap/cache
 
 EXPOSE 8080
 
-CMD php artisan optimize:clear && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan optimize:clear && php artisan serve --host=0.0.0.0 --port=8080
