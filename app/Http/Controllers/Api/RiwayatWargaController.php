@@ -115,17 +115,19 @@ class RiwayatWargaController extends Controller
 
                                 'file_url' =>
 
-                                    $item->suratKeluar
-                                        ->file_surat_path
+    $item->suratKeluar
+        ->file_surat_path
 
-                                    ? asset(
-                                        'storage/' .
+    ? url(
+        '/surat/' .
 
-                                        $item->suratKeluar
-                                            ->file_surat_path
-                                    )
+        basename(
+            $item->suratKeluar
+                ->file_surat_path
+        )
+    )
 
-                                    : null,
+    : null,
 
                                 'pejabat' =>
 

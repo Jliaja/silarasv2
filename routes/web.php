@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileWargaController;
 use App\Http\Controllers\DownloadController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,18 @@ Route::post('/logout', function () {
     return redirect()->route('login');
 })->name('logout');
 
+Route::get('/surat/{filename}', function ($filename) {
+
+    $path = storage_path(
+        'app/public/surat_keluar/' . $filename
+    );
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+});
 /*
 |--------------------------------------------------------------------------
 | AUTH ROUTES
