@@ -4,7 +4,9 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     curl \
-    zip
+    zip \
+    nodejs \
+    npm
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -27,6 +29,11 @@ RUN npm run build
 
 RUN chmod -R 777 storage bootstrap/cache
 
+RUN php artisan config:clear
+RUN php artisan cache:clear
+RUN php artisan route:clear
+RUN php artisan view:clear
+
 EXPOSE 8080
 
-CMD php artisan serve --host=0.0.0.0 --port=8080
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
