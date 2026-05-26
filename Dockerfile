@@ -1,6 +1,5 @@
 FROM dunglas/frankenphp:php8.2
 
-RUN php artisan storage:link || true
 
 RUN install-php-extensions \
     pdo_mysql \
