@@ -13,7 +13,17 @@ use App\Http\Controllers\DownloadController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
+Route::get('/cek-surat', function () {
+
+    $path = 'surat_keluar/surat_2.pdf';
+
+    return response()->json([
+        'exists' => Storage::disk('public')->exists($path),
+        'full_path' => storage_path('app/public/' . $path),
+    ]);
+});
 /*
 |--------------------------------------------------------------------------
 | ROOT → LANGSUNG KE LOGIN
