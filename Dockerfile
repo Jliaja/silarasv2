@@ -22,6 +22,8 @@ WORKDIR /app
 
 COPY . .
 
+COPY Caddyfile /etc/caddy/Caddyfile
+
 RUN composer install --no-dev --optimize-autoloader
 
 RUN npm install
@@ -33,4 +35,4 @@ RUN php artisan storage:link || true
 
 EXPOSE 8080
 
-CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
