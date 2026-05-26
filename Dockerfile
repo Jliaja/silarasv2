@@ -30,10 +30,6 @@ RUN npm run build
 RUN chmod -R 777 storage bootstrap/cache
 
 RUN php artisan storage:link || true
-RUN php artisan config:clear
-RUN php artisan cache:clear
-RUN php artisan route:clear
-RUN php artisan view:clear
 
 EXPOSE 8080
 
